@@ -1,0 +1,28 @@
+name: Download latest Tribuna Liberal issue
+
+on:
+  workflow_dispatch:
+    push:
+      branches: [ master ]
+  schedule:
+    - cron:  '0 12 * * 2,3,4,5,6,0'
+jobs:
+  downloader:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: ruby/setup-ruby@v1
+      with:
+        # don't need to set ruby version here if you have a .ruby-version file
+        bundler-cache: true
+    - name: Download
+      run: ruby main.rb
+    - name: Commit and push if it changed
+      run: |-
+        git config user.name "Automated"
+        git config user.email "actions@users.noreply.github.com"
+        git add -A
+        timestamp=$(date -u)
+        git commit -m "Latest data: ${timestamp}" || exit 0
+        git push
