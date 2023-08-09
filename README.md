@@ -9,11 +9,11 @@ A [GitHub Action](https://github.com/glaucocustodio/tribuna-liberal-scraper/blob
 ## How to run
 
 ```sh
-ruby main.rb
+make run
 ```
 
 The latest issue will be saved on the `issues` folder.
 
 ## Inspiration
- 
+
 https://simonwillison.net/2020/Oct/9/git-scraping/
